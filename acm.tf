@@ -1,5 +1,23 @@
-# ACM
+# ACM for Tokyo Region
 resource "aws_acm_certificate" "tokyo_cert" {
+  domain_name       = "00374.engineed-exam.com"
+  validation_method = "DNS"
+
+  tags = {
+    Name = "ACM"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+
+}
+
+# ACM for Virginia Region
+resource "aws_acm_certificate" "virginia_cert" {
+  provider = aws.virginia
+
   domain_name       = "00374.engineed-exam.com"
   validation_method = "DNS"
 
