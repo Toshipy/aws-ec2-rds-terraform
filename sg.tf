@@ -37,11 +37,11 @@ resource "aws_security_group" "ec2_sg" {
 }
 
 resource "aws_security_group_rule" "ec2_in_http" {
-  security_group_id = aws_security_group.ec2_sg.id
-  type              = "ingress"
-  protocol          = "tcp"
-  from_port         = 80
-  to_port           = 80
+  security_group_id        = aws_security_group.ec2_sg.id
+  type                     = "ingress"
+  protocol                 = "tcp"
+  from_port                = 80
+  to_port                  = 80
   source_security_group_id = aws_security_group.alb_sg.id
 }
 
