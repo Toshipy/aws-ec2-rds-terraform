@@ -70,7 +70,7 @@ resource "aws_subnet" "private3_subnet_1a" {
 
 }
 
-# Subnet 4.private_subnet_1a - RDS
+# Subnet 4.private_subnet_1c - RDS
 resource "aws_subnet" "private4_subnet_1c" {
   vpc_id                  = aws_vpc.vpc.id
   availability_zone       = "ap-northeast-1c"
