@@ -27,5 +27,5 @@ Content-Disposition: attachment; filename="userdata.txt"
 
 # ex.
 # /home/ec2-user/initialize.sh xxx.ap-northeast-1.rds.amazonaws.com admin password 00001
-/home/ec2-user/initialize.sh <dbhost> <dbuser> <dbpass> <examineeid>
+/home/ec2-user/initialize.sh tf-20230115043219651900000001.cv1tid5b4chc.ap-northeast-1.rds.amazonaws.com admin engineed00001 00374
 --//

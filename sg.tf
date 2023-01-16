@@ -34,6 +34,7 @@ resource "aws_security_group_rule" "alb_out_tcp" {
   from_port         = 0
   to_port           = 0
   cidr_blocks       = ["0.0.0.0/0"]
+  # source_security_group_id = aws_security_group.ec2_sg.id
 }
 
 
@@ -54,6 +55,25 @@ resource "aws_security_group_rule" "ec2_in_http" {
   from_port                = 80
   to_port                  = 80
   source_security_group_id = aws_security_group.alb_sg.id
+}
+
+# resource "aws_security_group_rule" "ec2_in_https" {
+#   security_group_id = aws_security_group.ec2_sg.id
+#   type              = "ingress"
+#   protocol          = "tcp"
+#   from_port         = 443
+#   to_port           = 443
+#   cidr_blocks       = ["0.0.0.0/0"]
+#   source_security_group_id = aws_security_group.alb_sg.id
+# }
+
+resource "aws_security_group_rule" "ec2_out_tcp" {
+  security_group_id = aws_security_group.ec2_sg.id
+  type              = "egress"
+  protocol          = -1
+  from_port         = 0
+  to_port           = 0
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 # RDS Security Group
