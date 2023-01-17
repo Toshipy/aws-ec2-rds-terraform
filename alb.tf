@@ -48,65 +48,65 @@ resource "aws_alb_target_group" "alb_target_group_manage-server" {
 
 
 # Listener
-resource "aws_alb_listener" "alb_listener_http" {
-  load_balancer_arn = aws_alb.alb.arn
-  port              = 80
-  protocol          = "HTTP"
+# resource "aws_alb_listener" "alb_listener_http" {
+#   load_balancer_arn = aws_alb.alb.arn
+#   port              = 80
+#   protocol          = "HTTP"
 
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_alb_target_group.alb_target_group_contents-server.arn
-  }
-}
+#   default_action {
+#     type             = "forward"
+#     target_group_arn = aws_alb_target_group.alb_target_group_contents-server.arn
+#   }
+# }
 
-resource "aws_alb_listener" "alb_listener_https" {
-  load_balancer_arn = aws_alb.alb.arn
-  port              = 443
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
-  # NOTE: ACMで作成した署名書のARN
-  certificate_arn = aws_acm_certificate.tokyo_cert.arn
+# resource "aws_alb_listener" "alb_listener_https" {
+#   load_balancer_arn = aws_alb.alb.arn
+#   port              = 443
+#   protocol          = "HTTPS"
+#   # ssl_policy        = "ELBSecurityPolicy-2016-08"
+#   # NOTE: ACMで作成した署名書のARN
+#   # certificate_arn = aws_acm_certificate.tokyo_cert.arn
 
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_alb_target_group.alb_target_group_contents-server.arn
-  }
-}
-
-
-# Listener Group for contents-server
-resource "aws_alb_listener_rule" "alb_listener_contents-server" {
-  # load_balancer_arn = aws_lb.alb.arn
-  listener_arn = aws_alb_listener.alb_listener_https.arn
-  priority     = 10
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_alb_target_group.alb_target_group_contents-server.arn
-  }
-
-  condition {
-    path_pattern {
-      values = ["/manage/*"]
-    }
-  }
-}
+#   default_action {
+#     type             = "forward"
+#     target_group_arn = aws_alb_target_group.alb_target_group_contents-server.arn
+#   }
+# }
 
 
-# Listener Group for manage-server
-resource "aws_alb_listener_rule" "alb_listener_manage-server" {
-  # load_balancer_arn = aws_lb.alb.arn
-  listener_arn = aws_alb_listener.alb_listener_https.arn
-  priority     = 20
+# # Listener Group for contents-server
+# resource "aws_alb_listener_rule" "alb_listener_contents-server" {
+#   # load_balancer_arn = aws_lb.alb.arn
+#   # listener_arn = aws_alb_listener.alb_listener_https.arn
+#   priority     = 10
 
-  action {
-    type             = "forward"
-    target_group_arn = aws_alb_target_group.alb_target_group_manage-server.arn
-  }
+#   action {
+#     type             = "forward"
+#     target_group_arn = aws_alb_target_group.alb_target_group_contents-server.arn
+#   }
 
-  condition {
-    path_pattern {
-      values = ["/*"]
-    }
-  }
-}
+#   condition {
+#     path_pattern {
+#       values = ["/*"]
+#     }
+#   }
+# }
+
+
+# # Listener Group for manage-server
+# resource "aws_alb_listener_rule" "alb_listener_manage-server" {
+#   # load_balancer_arn = aws_lb.alb.arn
+#   listener_arn = aws_alb_listener.alb_listener_https.arn
+#   priority     = 20
+
+#   action {
+#     type             = "forward"
+#     target_group_arn = aws_alb_target_group.alb_target_group_manage-server.arn
+#   }
+
+#   condition {
+#     path_pattern {
+#       values = ["/manage/*"]
+#     }
+#   }
+# }

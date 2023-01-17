@@ -63,7 +63,7 @@ resource "aws_autoscaling_group" "asg-manage-server" {
 
 
 
-# Launch Template Server
+# Launch Template Contents Server
 resource "aws_launch_template" "contents-server_launch_template" {
   update_default_version = true
   name                   = "contents-server_launch_template"
@@ -104,6 +104,7 @@ resource "aws_launch_template" "manage-server_launch_template" {
     ]
     delete_on_termination = true
   }
+  user_data = filebase64("initialize.sh")
 
 }
 
